@@ -27,6 +27,36 @@
     }
     ?>
     <br>
+    <h2>Ejercicio 2</h2>
+    <p>Crea un programa para la generación repetitiva de 3 números aleatorios hasta obtener una
+        secuencia compuesta por: impar, par, impar</p>
+    <?php
+    $band= true;
+    $iteracion = 0;
+    $numgenerados = 0;
+    do {
+        $num1 = rand(1,9999);
+        $num2 = rand(1,9999);
+        $num3 = rand(1,9999);
+        $iteracion++;
+        $numgenerados +=3;
+        $matriz[] = [$num1, $num2, $num3];
+        if ($num1 % 2 != 0 && $num2 % 2 == 0 && $num3 % 2 != 0) {
+            $band = false;
+        }
+    } while ($band);
+
+    //Recorre todo el arreglo 
+    foreach ($matriz as $fila) {
+        //imprime el contenido de la matriz por fila y separa cada elemento con un espacio
+        echo implode(" ", $fila) . "<br>";
+    };
+
+    echo "<p>Numero de iteraciones: $iteracion</p>";
+    echo "<p>Numeros generados: $numgenerados</p>"
+
+    ?>
+
 </body>
 
 </html>
