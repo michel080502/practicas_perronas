@@ -65,23 +65,42 @@
         <input type="number" name="numeroDado">
         <input type="submit">
     </form>
+    <br>
 
     <?php
     if (isset($_GET['numeroDado'])) {
         $numeroDado = $_GET['numeroDado'];
-        $numeroAleatorio = rand(1,999);
+        $numeroAleatorio = rand(1, 999);
 
-        while($numeroAleatorio%$numeroDado !== 0){
+        while ($numeroAleatorio % $numeroDado !== 0) {
             $numerosGenerados[] = $numeroAleatorio;
-            $numeroAleatorio = rand(1,999);
+            $numeroAleatorio = rand(1, 999);
         }
-        $numerosGenerados[]=$numeroAleatorio;
+        $numerosGenerados[] = $numeroAleatorio;
 
         echo "El primer número entero aleatorio que es múltiplo de $numeroDado es: $numeroAleatorio <br>";
-        echo "Los numeros generados aleatoriamnete fueron: <br> ";
+        echo "Los numeros generados aleatoriamnete fueron:";
         echo implode(", ", $numerosGenerados);
     }
     ?>
+    <p>Variante de script con do-while:</p>
+    <?php
+    if (isset($_GET['numeroDado'])) {
+        $numeroDado1 = $_GET['numeroDado'];
+        do {
+            $numeroAleatorio1 = rand(1, 999);
+            $numerosGenerados1[] = $numeroAleatorio1;
+        } while ($numeroAleatorio1 % $numeroDado1 !== 0);
+        echo "El primer número entero aleatorio que es múltiplo de $numeroDado1 es: $numeroAleatorio1 <br>";
+        echo "Los numeros generados aleatoriamnete fueron: <br> ";
+        echo implode(", ", $numerosGenerados1);
+    }
+    ?>
+
+    <h2>Ejercicio 4</h2>
+    <p>Crear un arreglo cuyos índices van de 97 a 122 y cuyos valores son las letras de la ‘a’
+        a la ‘z’. Usa la función chr(n) que devuelve el caracter cuyo código ASCII es n para poner
+        el valor en cada índice. Es decir:</p>
 </body>
 
 </html>
