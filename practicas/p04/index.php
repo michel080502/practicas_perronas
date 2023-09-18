@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.1//EN” “http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd”>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang=“es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Práctica 4</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title> Practica 4 </title>
 </head>
 
 <body>
@@ -101,6 +100,34 @@
     <p>Crear un arreglo cuyos índices van de 97 a 122 y cuyos valores son las letras de la ‘a’
         a la ‘z’. Usa la función chr(n) que devuelve el caracter cuyo código ASCII es n para poner
         el valor en cada índice. Es decir:</p>
+
+    <?php
+    for ($i = 97; $i < 123; $i++) {
+        $letra = chr($i);
+        $abc[$i] =  $letra;
+    }
+
+    //Inicia la tabla
+    echo '<table style = "  border-collapse: collapse; width: 100%;" >';
+    //Imprime fila de los indices
+    echo '<tr>';
+    foreach ($abc as $key => $value) {
+        echo '<th style = "border : 1px solid;">' . $key . '</th>';
+    }
+    //Termina la fila de indices
+    echo '</tr>';
+
+    //Inicia fila de los valores
+    echo '<tr>';
+    foreach ($abc as $key => $value) {
+        echo '<td style = "border : 1px solid;   text-align: center;">' . $value . '</td>';
+    }
+    //Termina la fila de los valores
+    echo '</tr>';
+    //Termina la tabla
+    echo '</table>';
+    ?>
+
 </body>
 
 </html>
