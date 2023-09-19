@@ -16,13 +16,9 @@
         <br>
     </form>
     <?php
+    include 'funciones.php'; //Agrega la referencia al archivo con las funciones
     if (isset($_GET['numero'])) {
-        $num = $_GET['numero'];
-        if ($num % 5 == 0 && $num % 7 == 0) {
-            echo '<h3>R= El número ' . $num . ' SÍ es múltiplo de 5 y 7.</h3>';
-        } else {
-            echo '<h3>R= El número ' . $num . ' NO es múltiplo de 5 y 7.</h3>';
-        }
+        ejercicio1($num = $_GET['numero']);
     }
     ?>
     <br>
@@ -30,30 +26,7 @@
     <p>Crea un programa para la generación repetitiva de 3 números aleatorios hasta obtener una
         secuencia compuesta por: impar, par, impar</p>
     <?php
-    $band = true;
-    $iteracion = 0;
-    $numgenerados = 0;
-    do {
-        $num1 = rand(1, 9999);
-        $num2 = rand(1, 9999);
-        $num3 = rand(1, 9999);
-        $iteracion++;
-        $numgenerados += 3;
-        $matriz[] = [$num1, $num2, $num3];
-        if ($num1 % 2 != 0 && $num2 % 2 == 0 && $num3 % 2 != 0) {
-            $band = false;
-        }
-    } while ($band);
-
-    //Recorre todo el arreglo 
-    foreach ($matriz as $fila) {
-        //imprime el contenido de la matriz por fila y separa cada elemento con un espacio
-        echo implode(", ", $fila) . "<br>";
-    };
-
-    echo "<p>Numero de iteraciones: $iteracion</p>";
-    echo "<p>Numeros generados: $numgenerados</p>"
-
+    ejercicio2();
     ?>
 
     <h2>Ejercicio 3</h2>
@@ -68,31 +41,13 @@
 
     <?php
     if (isset($_GET['numeroDado'])) {
-        $numeroDado = $_GET['numeroDado'];
-        $numeroAleatorio = rand(1, 999);
-
-        while ($numeroAleatorio % $numeroDado !== 0) {
-            $numerosGenerados[] = $numeroAleatorio;
-            $numeroAleatorio = rand(1, 999);
-        }
-        $numerosGenerados[] = $numeroAleatorio;
-
-        echo "El primer número entero aleatorio que es múltiplo de $numeroDado es: $numeroAleatorio <br>";
-        echo "Los numeros generados aleatoriamnete fueron:";
-        echo implode(", ", $numerosGenerados);
+        ejercicio3($numeroDado = $_GET['numeroDado']);
     }
     ?>
     <p>Variante de script con do-while:</p>
     <?php
     if (isset($_GET['numeroDado'])) {
-        $numeroDado1 = $_GET['numeroDado'];
-        do {
-            $numeroAleatorio1 = rand(1, 999);
-            $numerosGenerados1[] = $numeroAleatorio1;
-        } while ($numeroAleatorio1 % $numeroDado1 !== 0);
-        echo "El primer número entero aleatorio que es múltiplo de $numeroDado1 es: $numeroAleatorio1 <br>";
-        echo "Los numeros generados aleatoriamnete fueron: <br> ";
-        echo implode(", ", $numerosGenerados1);
+        ejercicio3var($numeroDado1 = $_GET['numeroDado']);
     }
     ?>
 
@@ -102,30 +57,7 @@
         el valor en cada índice. Es decir:</p>
 
     <?php
-    for ($i = 97; $i < 123; $i++) {
-        $letra = chr($i);
-        $abc[$i] =  $letra;
-    }
-
-    //Inicia la tabla
-    echo '<table style = "  border-collapse: collapse; width: 100%;" >';
-    //Imprime fila de los indices
-    echo '<tr>';
-    foreach ($abc as $key => $value) {
-        echo '<th style = "border : 1px solid;">' . $key . '</th>';
-    }
-    //Termina la fila de indices
-    echo '</tr>';
-
-    //Inicia fila de los valores
-    echo '<tr>';
-    foreach ($abc as $key => $value) {
-        echo '<td style = "border : 1px solid;   text-align: center;">' . $value . '</td>';
-    }
-    //Termina la fila de los valores
-    echo '</tr>';
-    //Termina la tabla
-    echo '</table>';
+    ejercicio4();
     ?>
 
     <h2>Ejercicio 5</h2>
@@ -133,7 +65,7 @@
         sexo “femenino”, cuya edad oscile entre los 18 y 35 años y mostrar un mensaje de
         bienvenida apropiado.</p>
 
-    <form action="http://localhost/tecweb_new/practicas/p04/index.php" method="post">
+    <form action="http://localhost/tecweb_new/practicas/p04/forms.php" method="post">
         <label for="edad">Escribe tu edad: </label>
         <input type="number" name="edad">
         <br> <br>
@@ -147,22 +79,8 @@
         <input type="submit">
     </form>
 
-    <?php
-    if (isset($_POST['edad'], $_POST['genero'])) {
-        $edad = $_POST['edad'];
-        $genero = $_POST['genero'];
-        if ($edad >= 18 && $edad <= 35 && $genero == 'femenino') {
-            echo "Bienvenida usted esta en el rango de edad permitido! ";
-        } elseif ($edad == null) {
-            echo "Ingrese su edad";
-        } elseif ($genero == 0) {
-            echo "Ingrese su genero";
-        } else {
-            echo "Lamentablemente usted no esta en el rango permitido de edad :c";
-        }
-    }
-    ?>
-
+    <h2>Ejercicio 6</h2>
+    <p></p>
 </body>
 
 </html>
