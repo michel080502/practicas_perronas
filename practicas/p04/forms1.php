@@ -88,14 +88,14 @@
         "Propietario" => array("Nombre" => "Daniel Ríos", "Ciudad" => "Mazatlán", "Direccion" => "Avenida Oeste 567")
     );
     $matriculabuscar = $_POST['matricula'];
-    if (!empty($matriculabuscar) || !empty($todos) ) {
-        $band = true;
+    if (!empty($matriculabuscar)) {
         foreach ($parqueVehicular as $matricula => $informacion) {
             if ($matriculabuscar == $matricula) {
                 echo "Auto con la matricula " . $matriculabuscar . " contiene la información: <br>";
                 echo "<pre>";
                 print_r($informacion);
                 echo "</pre>";
+                $band = true;
                 break;
             }else{
                 $band = false;
