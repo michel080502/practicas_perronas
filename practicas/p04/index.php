@@ -80,7 +80,19 @@
     </form>
 
     <h2>Ejercicio 6</h2>
-    <p></p>
+    <p>Crea en código duro un arreglo asociativo que sirva para registrar el parque vehicular de
+        una ciudad.</p>
+    <form action="http://localhost/tecweb_new/practicas/p04/forms1.php" method="post">
+        <label for="matricula">Ingrese matricula del carro a buscar: </label>
+        <input type="search" name="matricula">
+        <br> <br>
+        <input type="submit" value="Buscar">
+        <br> 
+    </form>
+
+    <form action="http://localhost/tecweb_new/practicas/p04/forms2.php" method="post">
+        <input type="submit" value="Ver todos los autos">       
+    </form>
 </body>
 
 </html>
