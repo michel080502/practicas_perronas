@@ -67,7 +67,7 @@
                 /** NOTA: con @ se suprime el Warning para gestionar el error por medio de código */
             }
             /** Crear una tabla que no devuelve un conjunto de resultados */
-            $sql = "INSERT INTO productos VALUES (null, '{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
+            $sql = "INSERT INTO productos VALUES (null, '{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}', 0)";
             if ($link->query($sql)) {
                 echo '<h1>Producto insertado con ID: ' . $link->insert_id . '</h1>';
                 echo "	<h2> Acerca del producto registrado:</h2>";
