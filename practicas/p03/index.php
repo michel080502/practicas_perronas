@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.1//EN” “http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd”>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang=“es">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -18,7 +18,6 @@
     $var7;
     $_element1;
     //$house * 5; //invalida
-
     echo '<ul>';
     echo '<li> $_myvar es valida porque inicia con guion bajo </li>';
     echo '<li> $_7var es valida porque inicia con guion bajo </li>';
@@ -26,7 +25,6 @@
     echo '<li> $var7 es valida porque inicia con una letra </li>';
     echo '<li> $_element1 es valida porque inicia con guion bajo </li>';
     echo '</ul>';
-
     include 'ejercicio2.php';
     include 'ejercicio3.php';
     include 'ejercicio4.php';
@@ -34,6 +32,10 @@
     include 'ejercicio6.php';
     include 'ejercicio7.php';
     ?>
+
+    <p>
+        <a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" /></a>
+    </p>
 </body>
 
 </html>

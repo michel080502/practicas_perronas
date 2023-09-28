@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Registro de productos</title>
+    <style type="text/css">
+      ol,
+      ul {
+        list-style-type: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Registro de productos a la base de datos</h1>
+
+    <p>
+      En esta pagina ingresaras los datos solicitados para hacer un registro
+      correcto de los productos.
+    </p>
+
+    <form
+      id="formulariProducto"
+      action="http://localhost/tecweb_new/practicas/p06/set_producto_v2.php"
+      method="post"
+    >
+      <h2>Información del Producto</h2>
+
+      <fieldset>
+        <legend>Producto</legend>
+
+        <ul>
+          <li>
+            <label for="form-nombre">Nombre:</label>
+            <input type="text" name="nombre" id="form-nombre" />
+          </li>
+          <br />
+          <li>
+            <label for="form-marca">Marca:</label>
+            <input type="text" name="marca" id="form-marca" />
+          </li>
+          <br />
+          <li>
+            <label for="form-modelo">Modelo:</label>
+            <input type="text" name="modelo" id="form-modelo" />
+          </li>
+          <br />
+          <li>
+            <label for="form-precio">Precio:</label>
+            <input type="number" name="precio" id="form-precio"  min="0"/>
+          </li>
+          <br />
+          <li>
+            <label for="form-detalles">Detalles: </label><br /><textarea
+              name="detalles"
+              rows="4"
+              cols="60"
+              id="form-detalles"
+              placeholder="Describa el articulo"
+            ></textarea>
+          </li>
+          <br />
+          <li>
+            <label for="form-unidades">Unidades:</label>
+            <input type="number" name="unidades" id="form-unidades" min="0"/>
+          </li>
+          <br />
+          <li>
+            <label for="form-img">Imagen:</label>
+            <input type="text" name="img" id="form-img" />
+          </li>
+          <br />
+        </ul>
+      </fieldset>
+
+      <p>
+        <input type="submit" value="¡Registrar!" />
+        <input type="reset" />
+      </p>
+    </form>
+  </body>
+</html>
