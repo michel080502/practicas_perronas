@@ -20,6 +20,7 @@
             color: #4A0048;
         }
     </style>
+</head>
 
 <body>
     <?php
@@ -35,14 +36,14 @@
         $validador = false;
 
         if (!empty($nombre) && !empty($marca) && !empty($modelo) && !empty($precio) && !empty($detalles) && !empty($unidades) && !empty($imagen)) {
-            if (!preg_match("/^[a-zA-Z ]+$/", $nombre)) {
+            if (!preg_match("/^[a-zA-Z0-9 ]+$/", $nombre)) {
                 echo "<p>Por favor ingresa un nombre valido</p>";
             } elseif (!preg_match("/^[-a-zA-Z0-9 ]+$/", $marca)) {
                 echo "<p>Por favor ingresa una marca valido</p>";
             } elseif (!preg_match("/^[0-9.,]+$/", $precio)) {
                 echo "<p>Por favor ingresa un precio valido</p>";
             } elseif (!preg_match("/^[a-zA-Z0-9.%:, ]+$/", $detalles)) {
-                echo "<p>Por favor ingresa un campo valido</p>";
+                echo "<p>Por favor ingresa detalles  valido</p>";
             } elseif (!preg_match("/^[0-9]+$/", $unidades)) {
                 echo "<p>Por favor ingresa modelos validos</p>";
             } elseif (!preg_match("/^[-a-zA-Z0-9 ]+$/", $modelo)) {
@@ -89,4 +90,3 @@
 
     ?>
 </body>
-</head>
