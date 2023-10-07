@@ -98,15 +98,15 @@
         var unidades = document.getElementById("form-unidades").value;
         var img = document.getElementById("form-img").value;
 
-        var patron_nombre = /^[a-zA-Z]+$/;
+        var patron_nombre = /^[a-zA-Z0-9\s]+$/;
         var patron_modelo = /^[a-zA-Z0-9]+$/;
         var patron_precio = /^[0-9.]+$/;
         var patron_detalles = /^[a-zA-Z0-9]+$/;
         var patron_unidades = /^[0-9]+$/;
         var patron_img = /^[a-zA-Z0-9./_]+$/;
 
-        if (!patron_nombre.test(nombre) && nombre.lenght <= 100) {
-          alert("Escribe un nombre solo con letras y de 100 caracteres");
+        if (!patron_nombre.test(nombre) || nombre.lenght > 100) {
+          alert("Escribe un nombre solo con letras y numeros que no sea mayor a 100 caracteres");
         } else if ((marca == 0)) {
           alert("Selecciona una marca");
         } else if (!patron_modelo.test(modelo) && modelo.lenght <= 25) {

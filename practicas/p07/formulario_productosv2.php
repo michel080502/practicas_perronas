@@ -93,7 +93,7 @@
       var patron_unidades = /^[0-9]+$/;
       var patron_img = /^[a-zA-Z0-9./_]+$/;
 
-      if (!patron_nombre.test(nombre) && nombre.lenght <= 100) {
+      if (!patron_nombre.test(nombre) || nombre.lenght > 100) {
         validado = false;
         alert("Escribe un nombre solo con letras y de 100 caracteres");
       } else if ((marca == 0)) {
