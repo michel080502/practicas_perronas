@@ -76,20 +76,25 @@ function agregarProducto(e) {
   var finalJSON = JSON.parse(productoJsonString);
   // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
   finalJSON["nombre"] = document.getElementById("name").value;
-  // SE OBTIENE EL STRING DEL JSON FINAL
-  productoJsonString = JSON.stringify(finalJSON, null, 2);
+  //VALIDA LOS CAMPOS DEL JSON;
+  if (validar(finalJSON)) {
+    // SE OBTIENE EL STRING DEL JSON FINAL
+    productoJsonString = JSON.stringify(finalJSON, null, 2);
 
-  // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
-  var client = getXMLHttpRequest();
-  client.open("POST", "./backend/create.php", true);
-  client.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  client.onreadystatechange = function () {
-    // SE VERIFICA SI LA RESPUESTA ESTÁ LISTA Y FUE SATISFACTORIA
-    if (client.readyState == 4 && client.status == 200) {
-      console.log(client.responseText);
-    }
-  };
-  client.send(productoJsonString);
+    // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
+    var client = getXMLHttpRequest();
+    client.open("POST", "./backend/create.php", true);
+    client.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    client.onreadystatechange = function () {
+      // SE VERIFICA SI LA RESPUESTA ESTÁ LISTA Y FUE SATISFACTORIA
+      if (client.readyState == 4 && client.status == 200) {
+        console.log("[RESPUESTA DE SERVIDOR]\n" + client.responseText);
+        let respuesta = JSON.parse(client.responseText);
+        alert(respuesta.mensaje);
+      }
+    };
+    client.send(productoJsonString);
+  }
 }
 
 // SE CREA EL OBJETO DE CONEXIÓN COMPATIBLE CON EL NAVEGADOR
@@ -125,4 +130,49 @@ function init() {
    */
   var JsonString = JSON.stringify(baseJSON, null, 2);
   document.getElementById("description").value = JsonString;
+}
+
+function validar(finalJSON) {
+  var nombre = finalJSON.nombre;
+  var marca = finalJSON.marca;
+  var modelo = finalJSON.modelo;
+  var precio = finalJSON.precio;
+  var detalles = finalJSON.detalles;
+  var unidades = finalJSON.unidades;
+  var img = finalJSON.imagen;
+
+  var validado = true;
+  var patron_nombre = /^[a-zA-Z0-9\s]+$/;
+  var patron_modelo = /^[a-zA-Z0-9]+$/;
+  var patron_precio = /^[0-9.]+$/;
+  var patron_detalles = /^[a-zA-Z0-9.%:,\s]+$/;
+  var patron_unidades = /^[0-9]+$/;
+  var patron_img = /^[a-zA-Z0-9./_]+$/;
+
+  if (!patron_nombre.test(nombre) || nombre.lenght > 100) {
+    validado = false;
+    alert("Escribe un nombre solo con letras y de 100 caracteres");
+  } else if (marca == 0) {
+    validado = false;
+    alert("Escribe una marca");
+  } else if (!patron_modelo.test(modelo) || modelo.lenght > 25 || modelo == 0) {
+    validado = false;
+    alert("Escribe un modelo con letras y números y de 25 caracteres maximo");
+  } else if (!patron_precio.test(precio) || parseFloat(precio) < 99.99) {
+    validado = false;
+    alert("Ingresa precio con dos números decimales positivos mayor a 99.99");
+  } else if (!patron_detalles.test(detalles) || detalles.lenght > 250) {
+    validado = false;
+    alert(
+      "Verifique que los detalles sean descritos con letras y números y sea menor a 250 caracteres"
+    );
+  } else if (!patron_unidades.test(unidades) || precio < 0) {
+    validado = false;
+    alert("El campo unidades tiene que usar números positivos");
+  } else if (!patron_img.test(img)) {
+    validado = false;
+    alert("Ingrese una ruta de imagen valida");
+  }
+
+  return validado;
 }
