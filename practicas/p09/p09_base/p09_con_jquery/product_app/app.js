@@ -17,11 +17,9 @@ function init() {
   document.getElementById("description").value = JsonString;
 
   // SE LISTAN TODOS LOS PRODUCTOS
-  //listarProductos();
 }
 
 $(document).ready(function () {
-  $("#product-result").hide();
   $("#search").keyup(function (e) {
     if ($("#search").val()) {
       let search = $("#search").val();
@@ -84,12 +82,44 @@ $(document).ready(function () {
                         <li style="list-style: none;">status: ${respuesta.status}</li>
                         <li style="list-style: none;">message: ${respuesta.message}</li>
                     `;
-        $("#product-result").show();
+        $("#product-result").attr("class", "card my-4 d-block");
         $("#container").html(template_bar);
       }
     );
     e.preventDefault();
   });
 
-  
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:3000/p09/p09_base/p09_con_jquery/product_app/backend/product-list.php",
+    success: function (response) {
+      let productos = JSON.parse(response);
+      console.log(productos);
+      if (Object.keys(productos).length > 0) {
+        let template = "";
+        productos.forEach((element) => {
+          let descripcion = "";
+          descripcion += "<li>precio: " + element.precio + "</li>";
+          descripcion += "<li>unidades: " + element.unidades + "</li>";
+          descripcion += "<li>modelo: " + element.modelo + "</li>";
+          descripcion += "<li>marca: " + element.marca + "</li>";
+          descripcion += "<li>detalles: " + element.detalles + "</li>";
+
+          template += `
+                    <tr productId="${element.id}">
+                        <td>${element.id}</td>
+                        <td>${element.nombre}</td>
+                        <td><ul>${descripcion}</ul></td>
+                        <td>
+                            <button class="product-delete btn btn-danger" onclick="eliminarProducto()">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                `;
+        });
+        $("#products").html(template);
+      }
+    },
+  });
 });
