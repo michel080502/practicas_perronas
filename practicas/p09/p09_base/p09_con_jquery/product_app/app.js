@@ -19,6 +19,7 @@ function init() {
 }
 
 $(document).ready(function () {
+  let editar = false;
   listarProductos();
   $("#search").keyup(function (e) {
     if ($("#search").val()) {
@@ -70,10 +71,15 @@ $(document).ready(function () {
     var descripcion_producto = $("#description").val();
     var productoJSON = JSON.parse(descripcion_producto);
     productoJSON["nombre"] = $("#name").val();
+    productoJSON["id"] = $("#productId").val()
     var JsonString = JSON.stringify(productoJSON, null, 2);
+    let url =
+      editar == false
+        ? "http://localhost:3000/p09/p09_base/p09_con_jquery/product_app/backend/product-add.php"
+        : "http://localhost:3000/p09/p09_base/p09_con_jquery/product_app/backend/product-edit.php";
 
     $.post(
-      "http://localhost:3000/p09/p09_base/p09_con_jquery/product_app/backend/product-add.php",
+      url,
       JsonString,
       function (response) {
         listarProductos();
@@ -110,7 +116,7 @@ $(document).ready(function () {
             template += `
                         <tr productId="${element.id}">
                             <td>${element.id}</td>
-                            <td>${element.nombre}</td>
+                            <td><a href="#" class="product-item">${element.nombre}</a></td>
                             <td><ul>${descripcion}</ul></td>
                             <td>
                                 <button class="product-delete btn btn-danger">
@@ -135,17 +141,43 @@ $(document).ready(function () {
         url: "http://localhost:3000/p09/p09_base/p09_con_jquery/product_app/backend/product-delete.php",
         data: { id },
         success: function (response) {
-            listarProductos();
-            let respuesta = JSON.parse(response);
-            let template_bar = "";
-            template_bar += `
+          listarProductos();
+          let respuesta = JSON.parse(response);
+          let template_bar = "";
+          template_bar += `
                             <li style="list-style: none;">status: ${respuesta.status}</li>
                             <li style="list-style: none;">message: ${respuesta.message}</li>
                         `;
-            $("#product-result").attr("class", "card my-4 d-block");
-            $("#container").html(template_bar);
+          $("#product-result").attr("class", "card my-4 d-block");
+          $("#container").html(template_bar);
         },
       });
     }
+  });
+
+  $(document).on("click", ".product-item", function () {
+    console.log("Editando");
+    let element = $(this)[0].parentElement.parentElement;
+    let id = $(element).attr("productId");
+    $.get(
+      "http://localhost:3000/p09/p09_base/p09_con_jquery/product_app/backend/product-single.php",
+      { id },
+      function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        $("#name").val(datos.nombre);
+        let editJSON = {
+          precio: datos.precio,
+          unidades: datos.unidades,
+          modelo: datos.modelo,
+          marca: datos.marca,
+          detalles: datos.detalles,
+          imagen: datos.imagen,
+        };
+        $("#description").val(JSON.stringify(editJSON, null, 2));
+        $("#productId").val(datos.id);
+        editar = true;
+      }
+    );
   });
 });
