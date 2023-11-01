@@ -16,7 +16,7 @@ $(document).ready(function () {
       console.log(search);
       $.ajax({
         type: "GET",
-        url: "http://localhost:3000/p09_base/p09_con_jquery%20-%20complemento/product_app/backend/product-search.php",
+        url: "http://localhost:3000/p09_base/p09_con_jquery%20-%20POO_php/product_app/backend/product-search.php",
         data: { search },
         success: function (response) {
           console.log(response);
@@ -148,7 +148,7 @@ $(document).ready(function () {
       console.log(name);
       $.ajax({
         type: "GET",
-        url: "http://localhost:3000/p09_base/p09_con_jquery%20-%20complemento/product_app/backend/product-insertbyname.php",
+        url: "http://localhost:3000/p09_base/p09_con_jquery%20-%20POO_php/product_app/backend/product-insertbyname.php",
         data: { name },
         success: function (response) {
           console.log(response);
@@ -187,8 +187,8 @@ $(document).ready(function () {
     var JsonString = JSON.stringify(productoJSON, null, 2);
     let url =
       editar == false
-        ? "http://localhost:3000/p09_base/p09_con_jquery%20-%20complemento/product_app/backend/product-add.php"
-        : "http://localhost:3000/p09_base/p09_con_jquery%20-%20complemento/product_app/backend/product-edit.php";
+        ? "http://localhost:3000/p09_base/p09_con_jquery%20-%20POO_php/product_app/backend/product-add.php"
+        : "http://localhost:3000/p09_base/p09_con_jquery%20-%20POO_php/product_app/backend/product-edit.php";
 
     $.post(url, JsonString, function (response) {
       listarProductos();
@@ -208,7 +208,7 @@ $(document).ready(function () {
   function listarProductos() {
     $.ajax({
       type: "GET",
-      url: "http://localhost:3000/p09_base/p09_con_jquery%20-%20complemento/product_app/backend/product-list.php",
+      url: "http://localhost:3000/p09_base/p09_con_jquery%20-%20POO_php/product_app/backend/product-list.php",
       success: function (response) {
         let productos = JSON.parse(response);
         console.log(productos);
@@ -247,7 +247,7 @@ $(document).ready(function () {
       let id = $(element).attr("productId");
       $.ajax({
         type: "GET",
-        url: "http://localhost:3000/p09_base/p09_con_jquery%20-%20complemento/product_app/backend/product-delete.php",
+        url: "http://localhost:3000/p09_base/p09_con_jquery%20-%20POO_php/product_app/backend/product-delete.php",
         data: { id },
         success: function (response) {
           listarProductos();
@@ -269,7 +269,7 @@ $(document).ready(function () {
     let element = $(this)[0].parentElement.parentElement;
     let id = $(element).attr("productId");
     $.get(
-      "http://localhost:3000/p09_base/p09_con_jquery%20-%20complemento/product_app/backend/product-single.php",
+      "http://localhost:3000/p09_base/p09_con_jquery%20-%20POO_php/product_app/backend/product-single.php",
       { id },
       function (response) {
         let datos = JSON.parse(response);
