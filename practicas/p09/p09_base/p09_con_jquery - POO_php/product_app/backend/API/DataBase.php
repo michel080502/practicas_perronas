@@ -10,10 +10,6 @@ abstract class DataBase {
             '202027099',
             $database
         );
-    
-        /**
-         * NOTA: si la conexión falló $conexion contendrá false
-         **/
         if(!$this->conexion) {
             die('¡Base de datos NO conectada!');
         }

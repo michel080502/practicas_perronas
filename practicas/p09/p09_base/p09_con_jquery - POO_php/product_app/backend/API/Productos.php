@@ -1,11 +1,7 @@
 <?php
-
 namespace API\backend;
-
 use \API\backend\DataBase;
-
 include_once __DIR__ . "/DataBase.php";
-
 class Productos extends DataBase
 {
     private $response;
@@ -67,18 +63,104 @@ class Productos extends DataBase
             'message' => 'Error al editar'
         );
 
-        if(!empty($producto)) {
+        if (!empty($producto)) {
             // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
             $sql = "UPDATE productos SET nombre = '{$jsonOBJ->nombre}', marca = '{$jsonOBJ->marca}', 
             modelo = '{$jsonOBJ->modelo}', precio = {$jsonOBJ->precio}, detalles = '{$jsonOBJ->detalles}', unidades = {$jsonOBJ->unidades}, imagen = '{$jsonOBJ->imagen}' 
              WHERE id = {$jsonOBJ->id}";
             $result = $this->conexion->query($sql);
-            
+
             if ($result) {
                 $this->response['status'] =  "success";
                 $this->response['message'] =  "Producto editado";
-            }else{
+            } else {
                 $this->response['message'] = "ERROR: No se ejecuto $sql. " . mysqli_error($this->conexion);
+            }
+            $this->conexion->close();
+        }
+    }
+
+    public function listar()
+    {
+        // SE REALIZA LA QUERY DE BÚSQUEDA Y AL MISMO TIEMPO SE VALIDA SI HUBO RESULTADOS
+        if ($result = $this->conexion->query("SELECT * FROM productos WHERE eliminado = 0")) {
+            // SE OBTIENEN LOS RESULTADOS
+            $rows = $result->fetch_all(MYSQLI_ASSOC);
+            if (!is_null($rows)) {
+                // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
+                foreach ($rows as $num => $row) {
+                    foreach ($row as $key => $value) {
+                        $this->response[$num][$key] = utf8_encode($value);
+                    }
+                }
+            }
+            $result->free();
+        } else {
+            die('Query Error: ' . mysqli_error($this->conexion));
+        }
+        $this->conexion->close();
+    }
+
+    public function buscar($search)
+    {
+        if (!empty($search)) {
+            // SE REALIZA LA QUERY DE BÚSQUEDA Y AL MISMO TIEMPO SE VALIDA SI HUBO RESULTADOS
+            $sql = "SELECT * FROM productos WHERE (id = '{$search}' OR nombre LIKE '%{$search}%' OR marca LIKE '%{$search}%' OR detalles LIKE '%{$search}%') AND eliminado = 0";
+            if ($result = $this->conexion->query($sql)) {
+                // SE OBTIENEN LOS RESULTADOS
+                $rows = $result->fetch_all(MYSQLI_ASSOC);
+
+                if (!is_null($rows)) {
+                    // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
+                    foreach ($rows as $num => $row) {
+                        foreach ($row as $key => $value) {
+                            $this->response[$num][$key] = utf8_encode($value);
+                        }
+                    }
+                }
+                $result->free();
+            } else {
+                die('Query Error: ' . mysqli_error($this->conexion));
+            }
+            $this->conexion->close();
+        }
+    }
+
+    public function single($id)
+    {
+        $sql = "SELECT * FROM productos  WHERE id = {$id}";
+        if ($result = $this->conexion->query($sql)) {
+            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
+                foreach ($row as $key => $value) {
+                    $this->response[$key] = utf8_encode($value);
+                }
+            }
+        } else {
+            $this->response['message'] = "ERROR: No se ejecuto $sql. " . mysqli_error($this->conexion);
+        }
+        $this->conexion->close();
+    }
+
+    public function singlebyName($name)
+    {
+        if (!empty($name)) {
+            // SE REALIZA LA QUERY DE BÚSQUEDA Y AL MISMO TIEMPO SE VALIDA SI HUBO RESULTADOS
+            $sql = "SELECT * FROM productos WHERE  nombre LIKE '%{$name}%'  AND eliminado = 0";
+            if ($result = $this->conexion->query($sql)) {
+                // SE OBTIENEN LOS RESULTADOS
+                $rows = $result->fetch_all(MYSQLI_ASSOC);
+                if (!is_null($rows)) {
+                    // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
+                    foreach ($rows as $num => $row) {
+                        foreach ($row as $key => $value) {
+                            $this->response[$num][$key] = utf8_encode($value);
+                        }
+                    }
+                }
+                $result->free();
+            } else {
+                die('Query Error: ' . mysqli_error($this->conexion));
             }
             $this->conexion->close();
         }
